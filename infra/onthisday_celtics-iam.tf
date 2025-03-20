@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "onthisday_celtics-assume_role" {
 
 resource "aws_iam_role" "onthisday_celtics-iam_role" {
   name  = "onthisday_celtics-ecr-permissions"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.onthisday_celtics-assume_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecr_policy_attachment" {
