@@ -1,6 +1,6 @@
 FROM python:3.11-slim-buster
 
-COPY requirements.txt ./requirements.txt
+COPY src/onthisday_celtics/requirements.txt ./requirements.txt
 
 COPY src/onthisday_celtics/script.py ./script.py
 
