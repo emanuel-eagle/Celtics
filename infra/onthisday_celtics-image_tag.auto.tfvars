@@ -1,1 +1,1 @@
-onthisday_celtics-lambda_image_tag = "063d237f95bf15d4934858dabea3e9f913ae4940"
+onthisday_celtics-lambda_image_tag = "daf08864cd2ab0611ddc2118dd3cf40a41f4bad4"
