@@ -72,3 +72,4 @@ for year in range(start_year, end_year):
                 print(final_string)
     sleep(random.uniform(0.5, 1))
 post_response = requests.post(f"{IFTTT_WEBHOOK}{final_string}")
+print(post_response.status_code)
