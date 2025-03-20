@@ -1,0 +1,1 @@
+onthisday_celtics-lambda_image_tag = ""
