@@ -1,6 +1,7 @@
 from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import boxscoretraditionalv2
 from nba_api.stats.static import teams
+import pandas as pd
 import requests
 from time import sleep 
 import random
