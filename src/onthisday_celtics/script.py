@@ -1,11 +1,13 @@
 from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import boxscoretraditionalv2
 from nba_api.stats.static import teams
+from nba_api.stats.library.http import HTTPError
 import pandas as pd
 import requests
 from time import sleep 
 import random
 from datetime import datetime
+import sys
 
 ### format of the state map is 
 ###             the key is the column name from nba_api
@@ -49,6 +51,7 @@ final_string = f"On this day ({dd_mm_today}):\n"
 
 for year in range(start_year, end_year): 
     date = f"{dd_mm_today}/{year}"
+    print(year)
     gamefinder = leaguegamefinder.LeagueGameFinder(
             date_from_nullable=date,
             date_to_nullable=date,
@@ -70,6 +73,6 @@ for year in range(start_year, end_year):
             for index, row in df_threshold_specific.iterrows():
                 final_string += f"\nIn {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
                 print(final_string)
-    sleep(random.uniform(0.6, 2))
+    sleep(random.uniform(1, 2))
 post_response = requests.post(f"{IFTTT_WEBHOOK}{final_string}")
 print(post_response.status_code)
