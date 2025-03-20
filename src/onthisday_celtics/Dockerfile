@@ -1,8 +1,8 @@
 FROM python:3.11-slim-buster
 
-COPY requirements.txt ./requirements.txt
+COPY src/onthisday_celtics/requirements.txt ./requirements.txt
 
-COPY script.py ./script.py
+COPY src/onthisday_celtics/script.py ./script.py
 
 RUN pip install -r requirements.txt
 
