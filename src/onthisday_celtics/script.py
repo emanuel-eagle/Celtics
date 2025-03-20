@@ -37,6 +37,7 @@ split_today = today.split("-")
 
 dd_mm_today, end_year = split_today[0], int(split_today[-1])
 
+print("Trying to get team id...")
 nba_teams = teams.get_teams()
 
 celtics_id = 0
@@ -44,21 +45,24 @@ celtics_id = 0
 for team in nba_teams:
     if team["abbreviation"] == "BOS":
         celtics_id = team["id"]
+        print(f"Found Boston Celtics id: {celtics_id}")
         break
 
 final_string = f"On this day ({dd_mm_today}):\n"
 
 for year in range(start_year, end_year): 
     date = f"{dd_mm_today}/{year}"
-    print(year)
+    print(f"Trying to find game for {year}...")
     gamefinder = leaguegamefinder.LeagueGameFinder(
             date_from_nullable=date,
             date_to_nullable=date,
             team_id_nullable=celtics_id
         )
     games = gamefinder.get_data_frames()[0]
+    print(f"Collected for year: {year}!")
     if len(games) > 0:
         game_id = games["GAME_ID"][0]
+        print(f"Trying to get box score for: {game_id}...")
         boxscore = boxscoretraditionalv2.BoxScoreTraditionalV2(game_id = game_id)
         df_box_score = boxscore.get_data_frames()[0]
         df_celtics_only = df_box_score[df_box_score["TEAM_ID"] == celtics_id]
@@ -72,6 +76,7 @@ for year in range(start_year, end_year):
             for index, row in df_threshold_specific.iterrows():
                 final_string += f"\nIn {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
                 print(final_string)
+        print(f"Collected data for game: {game_id}!")
     sleep(2)
 post_response = requests.post(f"{IFTTT_WEBHOOK}{final_string}")
 print(post_response.status_code)
