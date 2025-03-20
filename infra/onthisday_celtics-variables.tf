@@ -18,7 +18,7 @@ variable onthisday_celtics-lambda_package_type {
 
 variable onthisday_celtics-lambda_timeout {
     type = string
-    default = 60
+    default = 120
 }
 
 variable onthisday_celtics-lambda_memory {
