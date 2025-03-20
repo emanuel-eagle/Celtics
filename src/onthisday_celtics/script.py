@@ -68,7 +68,7 @@ for year in range(start_year, end_year):
             df_stat_specific[stat] = df_stat_specific[stat].astype(int)
             df_threshold_specific = df_stat_specific[df_stat_specific[stat] > stat_threshold] 
             for index, row in df_threshold_specific.iterrows():
-                final_string += f"\nOn this day in {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
+                final_string += f"\nIn {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
                 print(final_string)
     sleep(random.uniform(0.5, 1))
 post_response = requests.post(f"{IFTTT_WEBHOOK}{final_string}")
