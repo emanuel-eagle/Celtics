@@ -23,7 +23,7 @@ variable onthisday_celtics-lambda_timeout {
 
 variable onthisday_celtics-lambda_memory {
     type = string
-    default = 256
+    default = 512
 }
 
 variable "onthisday_celtics-eventbridge_schedule" {
