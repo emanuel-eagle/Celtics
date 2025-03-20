@@ -1,10 +1,12 @@
 from nba_api.stats.endpoints import leaguegamefinder
 from nba_api.stats.endpoints import boxscoretraditionalv2
 from nba_api.stats.static import teams
+import pandas as pd
 import requests
 from time import sleep 
 import random
 from datetime import datetime
+
 
 ### format of the state map is 
 ###             the key is the column name from nba_api
@@ -44,6 +46,8 @@ for team in nba_teams:
         celtics_id = team["id"]
         break
 
+final_string = f"On this day ({dd_mm_today}):\n"
+
 for year in range(start_year, end_year): 
     date = f"{dd_mm_today}/{year}"
     gamefinder = leaguegamefinder.LeagueGameFinder(
@@ -65,10 +69,8 @@ for year in range(start_year, end_year):
             df_stat_specific[stat] = df_stat_specific[stat].astype(int)
             df_threshold_specific = df_stat_specific[df_stat_specific[stat] > stat_threshold] 
             for index, row in df_threshold_specific.iterrows():
-                result = f"On this day in {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
-                post_response = requests.post(f"{IFTTT_WEBHOOK}{result}")
-    sleep(random.uniform(0.5, 1))
-
-
-
-
+                final_string += f"\nIn {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
+                print(final_string)
+    sleep(random.uniform(0.6, 2))
+post_response = requests.post(f"{IFTTT_WEBHOOK}{final_string}")
+print(post_response.status_code)
