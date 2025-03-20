@@ -20,6 +20,7 @@ BLK_THRESHOLD = 12
 STL_THRESHOLD = 12
 AST_THRESHOLD = 12
 IFTTT_WEBHOOK = "https://maker.ifttt.com/trigger/Celtics_OnThisDay/with/key/nCph1jNcGvyI1MGw_z8hWV2pVlofbyjngk4vhNuoliW?value1="
+WAIT_TIME = 2 #seconds
 
 interesting_stat_map= {
         "REB" : [REB_THRESHOLD, "rebounds"],
@@ -50,6 +51,8 @@ for team in nba_teams:
 
 final_string = f"On this day ({dd_mm_today}):\n"
 
+sleep(WAIT_TIME)
+
 for year in range(start_year, end_year): 
     date = f"{dd_mm_today}/{year}"
     print(f"Trying to find game for {year}...")
@@ -77,6 +80,6 @@ for year in range(start_year, end_year):
                 final_string += f"\nIn {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
                 print(final_string)
         print(f"Collected data for game: {game_id}!")
-    sleep(2)
+    sleep(WAIT_TIME)
 post_response = requests.post(f"{IFTTT_WEBHOOK}{final_string}")
 print(post_response.status_code)
