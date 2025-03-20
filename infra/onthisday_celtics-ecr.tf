@@ -1,5 +1,8 @@
-module "onthisday_celtics-ecr-module" {
-  source  = "terraform-aws-modules/ecr/aws"
-  version = "2.3.1"
-  repository_name = var.onthisday_celtics_ecr
+resource "aws_ecr_repository" "onthisday_celtics-ecr-module" {
+  name                 = "onthisday_celtics-ecr-repo"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
 }
