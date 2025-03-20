@@ -72,6 +72,6 @@ for year in range(start_year, end_year):
             for index, row in df_threshold_specific.iterrows():
                 final_string += f"\nIn {year}, {row['PLAYER_NAME']} had {row[stat]} {stat_nice_name}."
                 print(final_string)
-    sleep(random.uniform(1, 2))
+    sleep(2)
 post_response = requests.post(f"{IFTTT_WEBHOOK}{final_string}")
 print(post_response.status_code)
